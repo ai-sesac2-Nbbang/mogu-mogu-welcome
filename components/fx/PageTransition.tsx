@@ -8,10 +8,15 @@ import { PropsWithChildren } from "react";
 export default function PageTransition({ children }: PropsWithChildren) {
   const pathname = usePathname();
 
+  // const variants = {
+  //   initial: { opacity: 0, y: 8, filter: "blur(2px)" },
+  //   enter:   { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.28, ease: "easeInOut" } },
+  //   exit:    { opacity: 0, y: -6, filter: "blur(2px)", transition: { duration: 0.2, ease: "easeInOut" } },
+  // };
   const variants = {
     initial: { opacity: 0, y: 8, filter: "blur(2px)" },
-    enter:   { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.28, ease: [0.22, 1, 0.36, 1] } },
-    exit:    { opacity: 0, y: -6, filter: "blur(2px)", transition: { duration: 0.2, ease: [0.4, 0, 1, 1] } },
+    enter:   { opacity: 1, y: 0, filter: "blur(0px)" },
+    exit:    { opacity: 0, y: -6, filter: "blur(2px)" },
   };
 
   return (
