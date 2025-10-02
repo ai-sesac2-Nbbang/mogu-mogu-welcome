@@ -97,3 +97,10 @@ html.dark body::after {
 html.dark .shimmer {
   background: linear-gradient(90deg, rgba(255,255,255,0.06) 25%, rgba(255,255,255,0.12) 37%, rgba(255,255,255,0.06) 63%);
 }
+/* globals.css 맨 아래 */
+.font-dohyeon {
+  font-family: "Do Hyeon", ui-sans-serif, system-ui, -apple-system,
+    "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", Roboto, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

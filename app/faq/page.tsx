@@ -1,57 +1,94 @@
+// app/faq/page.tsx
 "use client";
-import { JSX, useState } from "react";
 
-type Item = { cat: string; q: string; a: string | JSX.Element };
-
-const FAQS: Item[] = [
-  { cat: "결제/정산", q: "결제는 어떻게 하나요?", a: "지금은 직접 정산형이에요. 모구장이 먼저 결제하고, 모구러가 나중에 송금해요. 에스크로는 추후 지원 예정이에요." },
-  { cat: "결제/정산", q: "모구장 팁은 어떻게 책정되나요?", a: "0~20% 범위에서 모구장 재량으로 설정해요." },
-  { cat: "환불/취소", q: "구매 확정 후 취소할 수 있나요?", a: "구매 확정 후에는 취소가 불가능해요." },
-  { cat: "환불/취소", q: "신선식품 환불 규정이 궁금해요", a: "수령 후 2시간이 지나면 불량 신고가 불가능해요. 심각한 훼손·변질만 환불 가능해요." },
-  { cat: "개인정보/위치", q: "어떤 개인정보를 수집하나요?", a: "이름, 성별, 생년월일, 연락처, 가구원 수, 선호 카테고리를 수집해요." },
-  { cat: "지리/반경", q: "3km 반경 규칙이 뭐에요?", a: "AI 매칭의 기본 반경이에요. 모구장이 수락하면 거리는 유동적이에요." },
-  { cat: "신고/제재", q: "어떤 경우에 제재가 있나요?", a: <ul className="list-disc pl-5"><li>노쇼 2회 이상: 1주일 정지에요.</li><li>욕설·비하 2회 누적: 3일 정지에요.</li><li>반복 위반: 영구 정지에요.</li></ul> },
-  { cat: "금지 품목", q: "거래가 금지된 품목이 있나요?", a: "법령으로 금지된 물품은 거래할 수 없어요. 면세품·군마트용품의 재판매도 금지에요." },
-  { cat: "기타", q: "RAG 답변은 어떻게 제공되나요?", a: "항상 RAG 기준으로 답변해요. 매 답변에 데이터 기준 날짜를 표기해요." },
-];
+import { motion } from "framer-motion";
+import Reveal from "../../components/fx/Reveal";
+import PageHeader from "../../components/ui/PageHeader";
+import SectionCard from "../../components/ui/SectionCard";
 
 export default function Page() {
-  const [open, setOpen] = useState<Record<string, boolean>>({});
-  const cats = Array.from(new Set(FAQS.map((f) => f.cat)));
+  const faqs = [
+    {
+      q: "모구 서비스는 뭐예요?",
+      a: "동네 이웃과 함께 간편하게 공동구매하는 서비스예요. 모구장이 상품을 올리고, 모구러가 신청해서 정해진 스팟에서 수령해요.",
+    },
+    {
+      q: "결제는 어떻게 해요?",
+      a: "지금은 모구장이 먼저 결제하고, 나중에 개인 송금으로 정산해요. 에스크로는 이후에 지원 예정이에요.",
+    },
+    {
+      q: "환불은 가능해요?",
+      a: "구매 확정 후에는 환불이 불가해요. 신선식품은 수령 후 2시간이 지나면 불량 신고가 어려워요.",
+    },
+    {
+      q: "노쇼하면 어떻게 돼요?",
+      a: "사전 통보 없는 노쇼는 환불이 불가하고, 누적 시 제재가 적용돼요.",
+    },
+  ];
 
   return (
-    <main className="mx-auto max-w-5xl px-4 py-8">
-      <header className="mb-6">
-        <h1 className="text-2xl font-extrabold tracking-tight">자주 묻는 질문(FAQ)</h1>
-        <p className="mt-2 text-gray-600">카테고리별로 궁금한 점을 눌러서 확인해줘요. RAG 기준(2025-09-30 v7)으로 제공돼요.</p>
-      </header>
+    <main className="mx-auto max-w-6xl px-4 py-8">
+      {/* 상단 헤더 자체를 부드럽게 등장 */}
+      <Reveal>
+        <PageHeader
+          eyebrow="도움말이에요"
+          title="자주 묻는 질문이에요"
+          description="빠르게 궁금증을 해결해요. 더 궁금하면 지원센터로 문의해요."
+          actions={
+            <a
+              href="/support"
+              className="rounded-lg border px-3 py-2 text-sm font-semibold hover:bg-gray-50 dark:border-gray-800 dark:hover:bg-gray-900"
+            >
+              지원센터 가기
+            </a>
+          }
+        />
+      </Reveal>
 
-      {cats.map((cat) => (
-        <section key={cat} className="mt-8">
-          <h2 className="text-lg font-bold">{cat}에요</h2>
-          <div className="mt-2 space-y-2">
-            {FAQS.filter((f) => f.cat === cat).map((f, i) => {
-              const id = `${cat}-${i}`;
-              const isOpen = !!open[id];
-              return (
-                <div key={id} className="overflow-hidden rounded-xl border bg-white">
-                  <button
-                    onClick={() => setOpen((s) => ({ ...s, [id]: !s[id] }))}
-                    className="flex w-full items-center justify-between px-4 py-3 text-left font-semibold"
-                    aria-expanded={isOpen}
-                  >
-                    <span>{f.q}</span>
-                    <span className="opacity-60" aria-hidden>{isOpen ? "−" : "+"}</span>
-                  </button>
-                  {isOpen && <div className="px-4 pb-4 text-gray-700">{f.a}</div>}
+      {/* 리스트 컨테이너를 한 번 감싸고, 각 항목은 motion.li로 */}
+      <Reveal className="mt-4">
+        <SectionCard title="FAQ 목록이에요" subtitle="항목을 눌러 자세히 읽어요.">
+          <ul className="space-y-3">
+            {faqs.map((item, i) => (
+              <motion.li
+                key={item.q}
+                className="rounded-xl border p-4 dark:border-gray-800"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.28, delay: i * 0.03, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <button
+                  className="w-full text-left"
+                  type="button"
+                  // 간단 토글: 디테일은 나중에 아코디언 컴포넌트로 교체해도 돼요.
+                  onClick={(e) => {
+                    const box = (e.currentTarget.nextElementSibling as HTMLDivElement) || null;
+                    if (!box) return;
+                    const open = box.dataset.open === "1";
+                    box.dataset.open = open ? "0" : "1";
+                    box.style.maxHeight = open ? "0px" : `${box.scrollHeight}px`;
+                  }}
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <h3 className="text-base font-bold">{item.q}</h3>
+                    <span className="text-sm text-[var(--color-brand)]">보기</span>
+                  </div>
+                </button>
+                <div
+                  className="mt-2 overflow-hidden text-sm text-gray-700 transition-[max-height] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] dark:text-gray-300"
+                  style={{ maxHeight: "0px" }}
+                  data-open="0"
+                >
+                  <p className="pt-2">{item.a}</p>
                 </div>
-              );
-            })}
-          </div>
-        </section>
-      ))}
+              </motion.li>
+            ))}
+          </ul>
+        </SectionCard>
+      </Reveal>
 
-      <p className="mt-6 text-xs text-gray-500">데이터 기준: 2025-09-30 v7</p>
+      <p className="mt-8 text-xs text-gray-500">데이터 기준: 2025-09-30 v7이에요</p>
     </main>
   );
 }

@@ -1,118 +1,93 @@
+// app/features/page.tsx
+import PageHeader from "../../components/ui/PageHeader";
+import SectionCard from "../../components/ui/SectionCard";
+
 export default function Page() {
   return (
-    <main className="mx-auto max-w-5xl px-4 py-8">
-      <header className="mb-6">
-        <h1 className="text-2xl font-extrabold tracking-tight">모구 기능 안내</h1>
-        <p className="mt-2 text-gray-600 dark:text-gray-300">
-          모구 서비스의 핵심 흐름과 기능을 한눈에 볼 수 있게 정리했어요. 매칭부터 알림, 수령, 정산까지 간단하고 안전하게 이용할 수 있어요.
-        </p>
-      </header>
+    <main className="mx-auto max-w-6xl px-4 py-8">
+      <PageHeader
+        eyebrow="기능 소개에요"
+        title="모구모구 핵심 기능이에요"
+        description="이웃과 함께 간편하고 안전하게 공동구매하도록 꼭 필요한 기능만 담았어요."
+        actions={
+          <a
+            href="/policy"
+            className="rounded-lg border px-3 py-2 text-sm font-semibold hover:bg-gray-50 dark:border-gray-800 dark:hover:bg-gray-900"
+          >
+            안전·정책 먼저 볼래요
+          </a>
+        }
+      />
 
-      <section className="space-y-4">
-        <h2 className="mt-8 text-lg font-bold bg-gradient-to-r from-emerald-600 to-sky-600 bg-clip-text text-transparent dark:from-emerald-400 dark:to-sky-400">
-          모구링(매칭)
-        </h2>
-        <ul className="list-disc space-y-1 pl-5 text-gray-700 marker:text-emerald-500 dark:text-gray-300">
-          <li><b>3km 반경</b>을 기준으로 AI가 연결해줘요.</li>
-          <li>거리, 위시마켓, 거래 내역을 함께 고려해요.</li>
-          <li>행정동은 참고용이에요. 모구장이 수락하면 거리는 유동적이에요.</li>
-        </ul>
+      <div className="grid gap-4 md:grid-cols-2">
+        <SectionCard
+          title="모구링 매칭이에요"
+          subtitle="거리·위시마켓·거래 내역을 기반으로 매칭해줘요."
+        >
+          <ul className="list-disc pl-5 marker:text-[var(--color-brand)] text-sm leading-relaxed text-gray-700 dark:text-gray-300">
+            <li>AI 추천 반경은 3km에요.</li>
+            <li>최신순·거리순 정렬을 지원해요.</li>
+            <li>내 위시스팟을 기준으로 주변 모구스팟을 보여줘요.</li>
+          </ul>
+        </SectionCard>
 
-        <hr className="my-8 border-gray-200 dark:border-gray-800" />
+        <SectionCard
+          title="모구스팟·위시스팟이에요"
+          subtitle="수령 장소와 선호 장소를 간단히 지정해요."
+        >
+          <ul className="list-disc pl-5 marker:text-[var(--color-brand)] text-sm leading-relaxed text-gray-700 dark:text-gray-300">
+            <li>모구스팟은 게시물 미니맵에서 확인 가능해요.</li>
+            <li>위시스팟은 최대 두 곳까지 저장할 수 있어요.</li>
+            <li>정해진 시간에 해당 스팟에서 수령하면 돼요.</li>
+          </ul>
+        </SectionCard>
 
-        <h2 className="text-lg font-bold bg-gradient-to-r from-emerald-600 to-sky-600 bg-clip-text text-transparent dark:from-emerald-400 dark:to-sky-400">
-          모구톡(알림)
-        </h2>
-        <ul className="list-disc space-y-1 pl-5 text-gray-700 marker:text-emerald-500 dark:text-gray-300">
-          <li>모집 → 구매 → 소분 → 픽업까지 앱 푸시로 알려줘요.</li>
-          <li>변경 사항이 생기면 즉시 알려줘서 일정 조율이 편해요.</li>
-        </ul>
+        <SectionCard
+          title="온보딩·개인화에요"
+          subtitle="선호 마켓·카테고리·가구원 수로 추천을 맞춤화해요."
+        >
+          <ul className="list-disc pl-5 marker:text-[var(--color-brand)] text-sm leading-relaxed text-gray-700 dark:text-gray-300">
+            <li>가구원 수는 1인·2인·3인 이상 중에서 선택해요.</li>
+            <li>카테고리는 생활용품·식품/간식·패션/잡화·뷰티/헬스케어에요.</li>
+          </ul>
+        </SectionCard>
 
-        <hr className="my-8 border-gray-200 dark:border-gray-800" />
+        <SectionCard
+          title="알림·Q&A에요"
+          subtitle="모구톡으로 일정 알림, 게시물에서 Q&A를 지원해요."
+          footer="Q&A는 채팅형으로 전환 준비 중이에요."
+        >
+          <ul className="list-disc pl-5 marker:text-[var(--color-brand)] text-sm leading-relaxed text-gray-700 dark:text-gray-300">
+            <li>모집/마감/픽업을 앱 푸시로 알려줘요.</li>
+            <li>Q&A는 비공개/공개 설정이 가능해요.</li>
+          </ul>
+        </SectionCard>
 
-        <h2 className="text-lg font-bold bg-gradient-to-r from-emerald-600 to-sky-600 bg-clip-text text-transparent dark:from-emerald-400 dark:to-sky-400">
-          Q&amp;A
-        </h2>
-        <ul className="list-disc space-y-1 pl-5 text-gray-700 marker:text-emerald-500 dark:text-gray-300">
-          <li>게시물에서 댓글 형식으로 문의할 수 있어요.</li>
-          <li>공개/비공개 설정이 가능해요.</li>
-        </ul>
+        <SectionCard
+          title="정산·팁에요"
+          subtitle="지금은 직접 정산형이고, 팁은 0~20%에서 설정해요."
+          footer="추후 에스크로(계좌·간편·카드) 결제를 지원할 예정이에요."
+          className="md:col-span-2"
+        >
+          <ul className="list-disc pl-5 marker:text-[var(--color-brand)] text-sm leading-relaxed text-gray-700 dark:text-gray-300">
+            <li>모구장이 선결제하고 영수증 제출 후 정산받아요.</li>
+            <li>날씨나 스팟 특성에 따라 팁이 달라질 수 있어요.</li>
+          </ul>
+        </SectionCard>
 
-        <hr className="my-8 border-gray-200 dark:border-gray-800" />
+        <SectionCard
+          title="평가·배지에요"
+          subtitle="거래 후 키워드 평가와 매니아 배지로 신뢰를 높여요."
+          className="md:col-span-2"
+        >
+          <ul className="list-disc pl-5 marker:text-[var(--color-brand)] text-sm leading-relaxed text-gray-700 dark:text-gray-300">
+            <li>긍정/부정 키워드를 통해 소통·시간 준수·정산 품질 등을 평가해요.</li>
+            <li>자주 이용한 마켓은 ‘매니아 배지’를 받을 수 있어요.</li>
+          </ul>
+        </SectionCard>
+      </div>
 
-        <h2 className="text-lg font-bold bg-gradient-to-r from-emerald-600 to-sky-600 bg-clip-text text-transparent dark:from-emerald-400 dark:to-sky-400">
-          위시마켓·위시스팟·모구스팟
-        </h2>
-        <div className="grid gap-3 sm:grid-cols-2">
-          <div className="rounded-xl border p-4 shadow-sm transition hover:-translate-y-[1px] hover:shadow-md dark:border-gray-800">
-            <div className="font-semibold">위시마켓</div>
-            <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">선호 마켓을 등록해요(이마트, 홈플러스, 코스트코 등)에요.</p>
-          </div>
-          <div className="rounded-xl border p-4 shadow-sm transition hover:-translate-y-[1px] hover:shadow-md dark:border-gray-800">
-            <div className="font-semibold">위시스팟</div>
-            <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">선호 위치를 최대 두 곳 저장해요. 기준점 역할이에요.</p>
-          </div>
-          <div className="rounded-xl border p-4 shadow-sm transition hover:-translate-y-[1px] hover:shadow-md dark:border-gray-800 sm:col-span-2">
-            <div className="font-semibold">모구스팟</div>
-            <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">실제 수령 장소에요. 모구장이 설정하고 지도에서 확인해요.</p>
-          </div>
-        </div>
-
-        <hr className="my-8 border-gray-200 dark:border-gray-800" />
-
-        <h2 className="text-lg font-bold bg-gradient-to-r from-emerald-600 to-sky-600 bg-clip-text text-transparent dark:from-emerald-400 dark:to-sky-400">
-          온보딩·개인화
-        </h2>
-        <ul className="list-disc space-y-1 pl-5 text-gray-700 marker:text-emerald-500 dark:text-gray-300">
-          <li>가입 시 선호 마트, 가구원 수, 선호 카테고리를 입력해요.</li>
-          <li>카테고리: 생활용품 / 식품·간식 / 패션·잡화 / 뷰티·헬스케어에요.</li>
-          <li>가구원 수: 1인 / 2인 / 3인 이상이에요.</li>
-        </ul>
-
-        <hr className="my-8 border-gray-200 dark:border-gray-800" />
-
-        <h2 className="text-lg font-bold bg-gradient-to-r from-emerald-600 to-sky-600 bg-clip-text text-transparent dark:from-emerald-400 dark:to-sky-400">
-          정산·팁
-        </h2>
-        <ul className="list-disc space-y-1 pl-5 text-gray-700 marker:text-emerald-500 dark:text-gray-300">
-          <li><b>직접 정산형</b>이에요. 모구장이 먼저 결제하고 영수증 제출 후 정산받아요.</li>
-          <li>모구장 팁은 <b>0~20%</b> 범위에서 재량 설정해요.</li>
-        </ul>
-
-        <hr className="my-8 border-gray-200 dark:border-gray-800" />
-
-        <h2 className="text-lg font-bold bg-gradient-to-r from-emerald-600 to-sky-600 bg-clip-text text-transparent dark:from-emerald-400 dark:to-sky-400">
-          픽업 방식
-        </h2>
-        <ul className="list-disc space-y-1 pl-5 text-gray-700 marker:text-emerald-500 dark:text-gray-300">
-          <li>기본은 모구장이 지정한 모구스팟에서 픽업해요.</li>
-          <li>정해진 시간에 수령만 가능하면 어디서나 모구러가 될 수 있어요.</li>
-        </ul>
-
-        <hr className="my-8 border-gray-200 dark:border-gray-800" />
-
-        <h2 className="text-lg font-bold bg-gradient-to-r from-emerald-600 to-sky-600 bg-clip-text text-transparent dark:from-emerald-400 dark:to-sky-400">
-          지리·반경 규칙
-        </h2>
-        <ul className="list-disc space-y-1 pl-5 text-gray-700 marker:text-emerald-500 dark:text-gray-300">
-          <li>AI 추천 서비스 기준 반경은 <b>3km</b>에요.</li>
-          <li>정렬은 스팟 기준으로 동작해요.</li>
-          <li>모구장이 수락하면 거리 제약은 유연해요.</li>
-        </ul>
-
-        <hr className="my-8 border-gray-200 dark:border-gray-800" />
-
-        <h2 className="text-lg font-bold bg-gradient-to-r from-emerald-600 to-sky-600 bg-clip-text text-transparent dark:from-emerald-400 dark:to-sky-400">
-          업데이트 예정(로드맵) 기능
-        </h2>
-        <ul className="list-disc space-y-1 pl-5 text-gray-700 marker:text-emerald-500 dark:text-gray-300">
-          <li>채팅 서비스, 에스크로 결제, 레벨 시스템(최대 59레벨) 도입 예정이에요.</li>
-          <li>위시마켓 랭킹·쿠폰, 모구나가(안), 정기모구, 모구클랜, 모구하우스를 준비 중이에요.</li>
-          <li>시간대 기반 스팟 추천, 링크 공유, 연령·성별 랭킹, 지역 스팟 생성률 지표를 제공할 예정이에요.</li>
-        </ul>
-
-        <p className="mt-6 text-xs text-gray-500 dark:text-gray-400">데이터 기준: 2025-09-30 v7</p>
-      </section>
+      <p className="mt-8 text-xs text-gray-500">데이터 기준: 2025-09-30 v7에요</p>
     </main>
   );
 }
