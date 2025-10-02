@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { JSX, useState } from "react";
 
 type Item = { cat: string; q: string; a: string | JSX.Element };
 
