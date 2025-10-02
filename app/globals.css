@@ -1,0 +1,99 @@
+/* Tailwind v4 기본 설정 연결 */
+@config "../tailwind.config.mjs";
+@import "tailwindcss";
+
+/* =========================
+   🎨 Brand Tokens (Light/Dark)
+   필요하면 HEX만 바꿔도 전체 색이 바뀌어요
+   ========================= */
+@theme {
+  /* 기본 브랜드 컬러 */
+  --color-brand: #12b886;     /* primary */
+  --color-brand-2: #5b8def;   /* secondary (그라디언트 반대쪽) */
+
+  /* 다크 모드에서 살짝 톤 다운/업 */
+  --color-brand-dark: #18a374;
+  --color-brand-2-dark: #6ea1ff;
+}
+
+/* =========================
+   Global polish
+   ========================= */
+
+/* 스크롤바 감추기 유틸 */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* 부드러운 전환(과하지 않게) */
+* {
+  transition:
+    color .15s ease,
+    background-color .15s ease,
+    border-color .15s ease,
+    box-shadow .15s ease,
+    transform .15s ease;
+}
+
+/* 페이지 기본 배경 (은은한 그라디언트 + 점 그리드) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 40% at 20% 10%, color-mix(in oklab, var(--color-brand) 12%, transparent), transparent 60%),
+    radial-gradient(50% 35% at 80% 0%, color-mix(in oklab, var(--color-brand-2) 12%, transparent), transparent 60%);
+}
+html.dark body::before {
+  background:
+    radial-gradient(60% 40% at 20% 10%, color-mix(in oklab, var(--color-brand-dark) 16%, transparent), transparent 60%),
+    radial-gradient(50% 35% at 80% 0%, color-mix(in oklab, var(--color-brand-2-dark) 16%, transparent), transparent 60%);
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: .35;
+  background:
+    radial-gradient(circle at 1px 1px, rgba(0,0,0,.12) 1px, transparent 1.5px);
+  background-size: 14px 14px;
+}
+html.dark body::after {
+  opacity: .25;
+  background:
+    radial-gradient(circle at 1px 1px, rgba(255,255,255,.12) 1px, transparent 1.5px);
+  background-size: 14px 14px;
+}
+
+/* ====== Motion Utilities ====== */
+
+/* 살짝 뜨는 플로팅 */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+.animate-float { animation: float 4s ease-in-out infinite; }
+
+/* 은은한 글로우 */
+@keyframes glow {
+  0%,100% { box-shadow: 0 0 0 rgba(0,0,0,0); }
+  50% { box-shadow: 0 10px 30px rgba(0,0,0,.08); }
+}
+.animate-glow { animation: glow 3.2s ease-in-out infinite; }
+
+/* 스켈레톤 쉬머 */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, rgba(0,0,0,0.06) 25%, rgba(0,0,0,0.12) 37%, rgba(0,0,0,0.06) 63%);
+  background-size: 400% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+html.dark .shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0.06) 25%, rgba(255,255,255,0.12) 37%, rgba(255,255,255,0.06) 63%);
+}
