@@ -1,30 +1,67 @@
 // components/fx/FloatingIn.tsx
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { PropsWithChildren, useEffect, useState } from "react";
 
-export default function FloatingIn({ children }: PropsWithChildren) {
-  const reduce = useReducedMotion();
-  // 클라이언트 마운트 이후에만 idle 애니메이션 시작
+type Props = {
+  floatY?: number;      // 둥둥 떠다니는 진폭(px)
+  duration?: number;    // 한 주기(초)
+  hoverTilt?: number;   // 호버 때 기울기(deg)
+  hoverScale?: number;  // 호버 때 확대 비율
+  className?: string;
+};
+
+export default function FloatingIn({
+  children,
+  floatY = 6,
+  duration = 6,
+  hoverTilt = 8,
+  hoverScale = 1.05,
+  className = "",
+}: PropsWithChildren<Props>) {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
+  // 마우스 위치→기울기
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const sx = useSpring(mx, { stiffness: 160, damping: 20, mass: 0.2 });
+  const sy = useSpring(my, { stiffness: 160, damping: 20, mass: 0.2 });
+
+  const rotX = useTransform(sy, [-0.5, 0.5], [hoverTilt, -hoverTilt]); // 위/아래
+  const rotY = useTransform(sx, [-0.5, 0.5], [-hoverTilt, hoverTilt]); // 좌/우
+
+  function onMove(e: React.MouseEvent<HTMLDivElement>) {
+    const r = e.currentTarget.getBoundingClientRect();
+    // -0.5 ~ 0.5
+    mx.set((e.clientX - r.left) / r.width - 0.5);
+    my.set((e.clientY - r.top) / r.height - 0.5);
+  }
+  function onLeave() {
+    mx.set(0);
+    my.set(0);
+  }
+
   return (
     <motion.div
-      // 서버와 클라의 초기 스타일을 동일하게 유지
+      className={`relative pointer-events-auto ${className}`}
+      // 서버/클라 초기 DOM 동일 → 하이드레이션 안전
       initial={false}
-      // 뷰포트에 들어오면 최종 상태만 적용 (등장 트랜지션으로 인한 불일치 방지)
-      whileInView={reduce ? undefined : { opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, amount: 0.4 }}
-      // idle 떠다니기 애니메이션은 마운트 후(클라)만 실행
-      animate={reduce || !mounted ? undefined : { y: [0, -4, 0, 3, 0] }}
-      transition={
-        reduce || !mounted
-          ? undefined
-          : { duration: 5.5, repeat: Infinity, ease: "easeInOut" }
-      }
-      style={{ willChange: "transform" }}
+      // 항상 둥둥 떠다니게
+      animate={mounted ? { y: [0, -floatY, 0, floatY * 0.7, 0] } : undefined}
+      transition={{ duration, repeat: Infinity, ease: "easeInOut" }}
+      // 호버 반응
+      whileHover={{ scale: hoverScale }}
+      style={{
+        rotateX: rotX,
+        rotateY: rotY,
+        transformPerspective: 800,
+        willChange: "transform",
+        transform: "translateZ(0)",
+      }}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
     >
       {children}
     </motion.div>

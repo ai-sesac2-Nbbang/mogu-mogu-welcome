@@ -3,25 +3,26 @@
 
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 import PageHeader from "../../components/ui/PageHeader";
 import SectionCard from "../../components/ui/SectionCard";
 import BadgeCard from "../../components/ui/BadgeCard";
 import Modal from "../../components/ui/Modal";
 import Reveal from "../../components/fx/Reveal";
+import SmoothHover from "../../components/fx/SmoothHover"; // ★ 부드러운 호버
 
 export default function Page() {
   const THRESHOLD = 5;
 
-  // 예시 데이터: uses는 해당 마켓 이용 횟수에요.
   const maniaBadges = [
-    { src: "/badges/costco2.png",      title: "코스트코 매니아",   desc: "코스트코 공구를 즐겨해요",     uses: 3 },
-    { src: "/badges/emart.png",       title: "이마트 매니아",     desc: "이마트 공구를 자주 이용해요", uses: 5 },
-    { src: "/badges/homeplus.png",    title: "홈플러스 매니아",   desc: "홈플러스를 애용해요",         uses: 1 },
-    { src: "/badges/traders.png",     title: "트레이더스 매니아", desc: "트레이더스를 자주 이용해요", uses: 2 },
-    { src: "/badges/convenience.png", title: "편의점 매니아",     desc: "편의점 공구에 익숙해요",       uses: 4 },
-    { src: "/badges/traditional.png", title: "전통시장 매니아",   desc: "동네 시장을 사랑해요",         uses: 5 },
-    { src: "/badges/ecommerce2.png",   title: "이커머스 매니아",   desc: "온라인 마켓 공구를 자주 해요", uses: 6 },
+    { src: "/badges/costco2.png",    title: "코스트코 매니아",   desc: "코스트코 공구를 즐겨해요",     uses: 3 },
+    { src: "/badges/emart.png",      title: "이마트 매니아",     desc: "이마트 공구를 자주 이용해요", uses: 5 },
+    { src: "/badges/homeplus.png",   title: "홈플러스 매니아",   desc: "홈플러스를 애용해요",         uses: 1 },
+    { src: "/badges/traders.png",    title: "트레이더스 매니아", desc: "트레이더스를 자주 이용해요", uses: 2 },
+    { src: "/badges/convenience.png",title: "편의점 매니아",     desc: "편의점 공구에 익숙해요",       uses: 4 },
+    { src: "/badges/traditional.png",title: "전통시장 매니아",   desc: "동네 시장을 사랑해요",         uses: 5 },
+    { src: "/badges/ecommerce2.png", title: "이커머스 매니아",   desc: "온라인 마켓 공구를 자주 해요", uses: 6 },
   ];
 
   const positive = [
@@ -50,11 +51,6 @@ export default function Page() {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState<null | (typeof maniaBadges)[number]>(null);
 
-  const unlocked = useMemo(() => {
-    if (!selected) return false;
-    return (selected.uses ?? 0) >= THRESHOLD;
-  }, [selected]);
-
   const progress = useMemo(() => {
     if (!selected) return 0;
     return Math.min(selected.uses ?? 0, THRESHOLD);
@@ -80,7 +76,7 @@ export default function Page() {
         />
       </Reveal>
 
-      {/* 평판 키워드 (표시만) */}
+      {/* 평판 키워드 */}
       <Reveal>
         <div className="grid gap-4 md:grid-cols-2">
           <SectionCard title="긍정 키워드에요" subtitle="좋은 거래 경험을 표현해요.">
@@ -144,18 +140,21 @@ export default function Page() {
             const prog = Math.min(b.uses ?? 0, THRESHOLD);
             return (
               <Reveal key={b.title} delay={i * 0.04}>
-                <BadgeCard
-                  src={b.src}
-                  title={b.title}
-                  desc={b.desc}
-                  locked={!isUnlocked}
-                  progressText={!isUnlocked ? `${prog} / ${THRESHOLD}` : undefined}
-                  hoverPop={isUnlocked}
-                  onClick={() => {
-                    setSelected(b);
-                    setOpen(true);
-                  }}
-                />
+                {/* 부드러운 호버: 배지 카드 전체 */}
+                <SmoothHover lift={3} scale={1.005} shadow>
+                  <BadgeCard
+                    src={b.src}
+                    title={b.title}
+                    desc={b.desc}
+                    locked={!isUnlocked}
+                    progressText={!isUnlocked ? `${prog} / ${THRESHOLD}` : undefined}
+                    hoverPop={false}
+                    onClick={() => {
+                      setSelected(b);
+                      setOpen(true);
+                    }}
+                  />
+                </SmoothHover>
               </Reveal>
             );
           })}
@@ -164,20 +163,32 @@ export default function Page() {
 
       <p className="mt-8 text-xs text-gray-500">데이터 기준: 2025-09-30 v7에요</p>
 
-      {/* 모달: 배지 가이드 */}
+      {/* 모달: 배지 가이드 + 큰 이미지 미리보기 */}
       <Modal
         open={open && !!selected}
         onClose={() => setOpen(false)}
         title={selected ? `${selected.title} 가이드에요` : undefined}
+        className="p-0 sm:p-0"
       >
         {selected && (
-          <>
-            <p>
-              이 배지는 <b>{THRESHOLD}회 이상</b> 해당 마켓을 이용하면 자동으로 획득해요.
-            </p>
+          <div className="p-5">
+            <div className="mx-auto w-full max-w-[420px]">
+              <div className="relative aspect-square w-full overflow-hidden rounded-2xl border bg-white shadow-sm dark:border-gray-800 dark:bg-gray-900">
+                <Image
+                  src={selected.src}
+                  alt={selected.title}
+                  fill
+                  sizes="(min-width: 640px) 420px, 80vw"
+                  className="object-contain p-6"
+                  priority
+                />
+              </div>
+              <div className="mt-2 text-center text-sm text-gray-600 dark:text-gray-300">
+                {selected.desc}
+              </div>
+            </div>
 
-            {/* 진행률 바 */}
-            <div className="mt-4">
+            <div className="mt-6">
               <div className="mb-1 flex items-end justify-between text-xs text-gray-600 dark:text-gray-300">
                 <span>진행률에요</span>
                 <span>
@@ -186,7 +197,7 @@ export default function Page() {
               </div>
               <div className="h-2 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-800">
                 <div
-                  className="h-full bg-[var(--color-brand)] transition-[width]"
+                  className="h-full bg-[var(--color-brand)] transition-[width] duration-300"
                   style={{ width: `${percent}%` }}
                   aria-valuemin={0}
                   aria-valuemax={100}
@@ -196,13 +207,12 @@ export default function Page() {
               </div>
             </div>
 
-            {/* 팁 */}
             <ul className="mt-4 list-disc pl-5 text-sm text-gray-700 dark:text-gray-300 marker:text-[var(--color-brand)]">
               <li>가까운 스팟과 시간대를 설정하면 참여 확률이 높아져요.</li>
               <li>위시마켓을 업데이트하면 추천 정확도가 올라가요.</li>
               <li>공지 알림(모구톡)을 켜두면 마감 전에 놓치지 않아요.</li>
             </ul>
-          </>
+          </div>
         )}
       </Modal>
     </main>
