@@ -42,39 +42,39 @@ export default function Page() {
 
   const lawCards = [
     {
-      title: "허위 상품 등록(사기죄)예요",
+      title: "허위 상품 등록(사기)",
       items: [
-        "법률: 형법 제347조예요",
-        "예: 게시 정보와 실제 상품이 달라 상품 가치가 상실된 경우예요",
-        "처벌: 10년 이하 징역 또는 2천만원 이하 벌금이에요",
-        "조치: 계정 영구 정지와 수사기관 통보예요",
+        "법률: 형법 제347조",
+        "예: 게시 정보와 실제 상품이 달라 상품 가치가 상실된 경우",
+        "처벌: 10년 이하 징역 또는 2천만원 이하 벌금",
+        "조치: 계정 영구 정지와 수사기관 통보",
       ],
     },
     {
-      title: "고의 미정산(횡령·배임죄)예요",
+      title: "고의 미정산(횡령·배임죄)",
       items: [
-        "법률: 형법 제355조예요",
-        "예: 고의 지연·미지급으로 금전적 손해를 끼치는 경우예요",
-        "처벌: 5년 이하 징역 또는 1,500만원 이하 벌금이에요",
-        "조치: 계정 정지와 증빙 확보 후 수사기관 통보예요",
+        "법률: 형법 제355조",
+        "예: 고의 지연·미지급으로 금전적 손해를 끼치는 경우",
+        "처벌: 5년 이하 징역 또는 1,500만원 이하 벌금",
+        "조치: 계정 정지와 증빙 확보 후 수사기관 통보",
       ],
     },
     {
-      title: "거짓·과장 표시(전자상거래법 위반)예요",
+      title: "거짓·과장 표시(전자상거래법 위반)",
       items: [
-        "법률: 전자상거래법 제21조예요",
-        "예: 허위 사진·정보로 수익을 얻는 경우예요",
-        "처벌: 과징금·영업정지·형사처벌 병행 가능이에요",
-        "조치: 상품 차단, 계정 정지, 수사기관 통보예요",
+        "법률: 전자상거래법 제21조",
+        "예: 허위 사진·정보로 수익을 얻는 경우",
+        "처벌: 과징금·영업정지·형사처벌 병행 가능",
+        "조치: 상품 차단, 계정 정지, 수사기관 통보",
       ],
     },
     {
-      title: "개인정보 도용·판매(정보통신망법 위반)예요",
+      title: "개인정보 도용·판매(정보통신망법 위반)",
       items: [
-        "법률: 정보통신망법 제49조예요",
-        "예: 동의 없이 거래 진행 또는 명의 도용의 경우예요",
-        "처벌: 5년 이하 징역 또는 5천만원 이하 벌금이에요",
-        "조치: 계정 영구 정지와 수사기관 통보예요",
+        "법률: 정보통신망법 제49조",
+        "예: 동의 없이 거래 진행 또는 명의 도용의 경우",
+        "처벌: 5년 이하 징역 또는 5천만원 이하 벌금",
+        "조치: 계정 영구 정지와 수사기관 통보",
       ],
     },
   ];
@@ -90,15 +90,15 @@ export default function Page() {
     <main className="mx-auto max-w-6xl px-4 py-8">
       <Reveal>
         <PageHeader
-          eyebrow="안전·정책 안내에요"
-          title="서비스 이용 전 꼭 알아두면 좋아요"
+          eyebrow="안전·정책 안내"
+          title="서비스 이용 전 알아두면 좋아요"
           description="결제/정산, 환불/취소, 개인정보, 신고/제재, 금지 품목과 법적 가이드를 모았어요"
         />
       </Reveal>
 
       {/* 결제/정산 */}
       <Reveal className="mt-6">
-        <SectionCard title="결제/정산 규정이에요" subtitle="현재 방식과 추후 계획을 안내해요.">
+        <SectionCard title="결제/정산 규정" subtitle="현재 방식과 추후 계획 안내.">
           <ul className="space-y-2">
             {payRules.map((t, i) => (
               <motion.li
@@ -118,7 +118,7 @@ export default function Page() {
 
       {/* 환불/취소 */}
       <Reveal className="mt-6">
-        <SectionCard title="환불/취소 규정이에요" subtitle="상황별 기준을 명확히 안내해요.">
+        <SectionCard title="환불/취소 규정" subtitle="상황별 기준 안내.">
           <ul className="space-y-2">
             {refundRules.map((t, i) => (
               <motion.li
@@ -138,7 +138,7 @@ export default function Page() {
 
       {/* 개인정보 처리 */}
       <Reveal className="mt-6">
-        <SectionCard title="개인정보 처리 기준이에요" subtitle="최소 수집·목적 제한 원칙을 지켜요.">
+        <SectionCard title="개인정보 처리 기준" subtitle="최소 수집·목적 제한을 원칙으로 해요">
           <ul className="space-y-2">
             {privacyRules.map((t, i) => (
               <motion.li
@@ -158,7 +158,7 @@ export default function Page() {
 
       {/* 신고/제재 */}
       <Reveal className="mt-6">
-        <SectionCard title="신고/제재 기준이에요" subtitle="건강한 커뮤니티 유지를 위해 필요해요.">
+        <SectionCard title="신고/제재 기준" subtitle="건강한 커뮤니티 유지를 위해 필요">
           <ul className="space-y-2">
             {penaltyRules.map((t, i) => (
               <motion.li
@@ -178,7 +178,7 @@ export default function Page() {
 
       {/* 거래/재판매 금지 */}
       <Reveal className="mt-6">
-        <SectionCard title="거래 및 재판매 금지 품목이에요" subtitle="법령 위반 소지가 있는 품목을 금지해요.">
+        <SectionCard title="거래 및 재판매 금지 품목" subtitle="법령 위반 소지가 있는 품목 정리">
           <ul className="space-y-2">
             {bannedRules.map((t, i) => (
               <motion.li
@@ -198,7 +198,7 @@ export default function Page() {
 
       {/* 민형사상 가이드맵 */}
       <Reveal className="mt-6">
-        <SectionCard title="민형사상 처벌 가이드맵이에요" subtitle="주요 위반 사례와 조치를 안내해요.">
+        <SectionCard title="민형사상 처벌 가이드맵" subtitle="주요 위반 사례와 조치 안내">
           <div className="grid gap-4 sm:grid-cols-2">
             {lawCards.map((card, i) => (
               <motion.div
@@ -234,11 +234,11 @@ export default function Page() {
               viewport={{ once: true, amount: 0.2 }}
               transition={itemTrans(4)}
             >
-              <div className="font-semibold">기타 불법 행위 및 금지 품목이에요</div>
+              <div className="font-semibold">기타 불법 행위 및 금지 품목</div>
               <ul className="mt-2 space-y-1 text-sm text-gray-700 dark:text-gray-300">
-                <li>사례: 미성년자 유해 물품 판매, 불법 금전 요구 등이 해당돼요</li>
+                <li>사례: 유해 물품 판매, 불법 금전 요구 등이 해당돼요</li>
                 <li>처벌: 해당 법령에 따른 형사처벌이 적용돼요</li>
-                <li>금지: 의료용품·건기식·마약류·군용품·도난·장물 등은 거래 불가예요</li>
+                <li>금지: 의료용품·마약류·군용품·도난상품 등은 거래 불가예요</li>
                 <li>재판매 금지: 면세품·군마트용품 등은 재판매 불가예요</li>
               </ul>
             </motion.div>
@@ -246,7 +246,7 @@ export default function Page() {
         </SectionCard>
       </Reveal>
 
-      <p className="mt-8 text-xs text-gray-500">데이터 기준: 2025-09-30 v7이에요</p>
+      <p className="mt-8 text-xs text-gray-500">데이터 기준: 2025-10-11 v8</p>
     </main>
   );
 }

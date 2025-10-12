@@ -2,9 +2,6 @@
 import "./globals.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-// ⬇️ 전역 전환 공급자 & 오버레이
-import { TransitionProvider } from "../components/transition/TransitionProvider";
-import PageTransitionOverlay from "../components/transition/PageTransitionOverlay";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -30,7 +27,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <title>모구모구</title>
       </head>
 
-      {/* 다크모드에서 확실히 차이나게: Tailwind 기본 색 사용 */}
       <body className="min-h-screen antialiased bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100">
         {/* 스킵 링크 */}
         <a
@@ -40,17 +36,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           본문으로 바로가기
         </a>
 
-        {/* ⬇️ 전환 공급자 안에 앱 트리 감쌈 */}
-        <TransitionProvider>
-          <Navbar />
-          <main id="main" className="mx-auto max-w-6xl px-4 pt-6">
-            {children}
-          </main>
-          <Footer />
-
-          {/* ⬇️ 전역 페이지 전환 오버레이 */}
-          <PageTransitionOverlay />
-        </TransitionProvider>
+        {/* ⬇️ TransitionProvider / PageTransitionOverlay 제거 */}
+        <Navbar />
+        <main id="main" className="mx-auto max-w-6xl px-4 pt-6">
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );

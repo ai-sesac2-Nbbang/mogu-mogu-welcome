@@ -21,7 +21,7 @@ export default function Page() {
         {/* 왼쪽 텍스트/버튼 */}
         <Reveal>
           <div className="relative z-10">
-            <p className="text-sm font-semibold tracking-wide text-[var(--color-brand)]">이웃과 함께</p>
+            <p className="text-sm font-semibold tracking-wide text-[var(--color-brand)]">이웃과 함께하는 동네기반 공동구매 플랫폼</p>
 
             <h1 className="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl flex items-center">
   <span className="sr-only">모구모구</span>
@@ -43,7 +43,7 @@ export default function Page() {
             </p>
 
             <ul className="mt-6 grid gap-2 text-sm text-gray-600 dark:text-gray-300 sm:grid-cols-2">
-              {["팁을 20%까지 설정할 수 있어요","거리 기준 3km 매칭이에요"].map((t) => (
+              {["모구장 팁, 20%까지 설정 가능","3km 기반 매칭으로 동네 최적화"].map((t) => (
                 <li key={t} className="flex items-start gap-2">
                   <span className="mt-1 inline-block h-2.5 w-2.5 shrink-0 rounded-full bg-[var(--color-brand)]/70" />
                   <span>{t}</span>

@@ -16,13 +16,14 @@ export default function Page() {
   const THRESHOLD = 5;
 
   const maniaBadges = [
-    { src: "/badges/costco2.png",    title: "코스트코 매니아",   desc: "코스트코 공구를 즐겨해요",     uses: 3 },
-    { src: "/badges/emart.png",      title: "이마트 매니아",     desc: "이마트 공구를 자주 이용해요", uses: 5 },
-    { src: "/badges/homeplus.png",   title: "홈플러스 매니아",   desc: "홈플러스를 애용해요",         uses: 1 },
-    { src: "/badges/traders.png",    title: "트레이더스 매니아", desc: "트레이더스를 자주 이용해요", uses: 2 },
-    { src: "/badges/convenience.png",title: "편의점 매니아",     desc: "편의점 공구에 익숙해요",       uses: 4 },
-    { src: "/badges/traditional.png",title: "전통시장 매니아",   desc: "동네 시장을 사랑해요",         uses: 5 },
-    { src: "/badges/ecommerce2.png", title: "이커머스 매니아",   desc: "온라인 마켓 공구를 자주 해요", uses: 6 },
+    { src: "/badges/costco2.png",    title: "코스트코 매니아",   desc: "코스트코를 사랑해요",     uses: 3 },
+    { src: "/badges/emartmania2.png",      title: "이마트 매니아",     desc: "이마트를 사랑해요", uses: 5 },
+    { src: "/badges/homeplusmania2.png",   title: "홈플러스 매니아",   desc: "홈플러스를 사랑해요",         uses: 1 },
+    { src: "/badges/tradersmania2.png",    title: "트레이더스 매니아", desc: "트레이더스를 사랑해요", uses: 2 },
+    { src: "/badges/convenience.png",title: "편의점 매니아",     desc: "편의점을 사랑해요",       uses: 4 },
+    { src: "/badges/traditionalmania2.png",title: "전통시장 매니아",   desc: "전통시장을 사랑해요",         uses: 5 },
+    { src: "/badges/ecommerce2.png", title: "이커머스 매니아",   desc: "이커머스를 사랑해요", uses: 6 },
+    { src: "/badges/localmania2.png", title: "로컬 매니아",   desc: "지역 상점을 사랑해요", uses: 6 },
   ];
 
   const positive = [
@@ -62,8 +63,8 @@ export default function Page() {
     <main className="mx-auto max-w-6xl px-4 py-8">
       <Reveal>
         <PageHeader
-          eyebrow="신뢰 지표에요"
-          title="평판과 매니아 배지에요"
+          eyebrow="신뢰 지표"
+          title="평판/매니아 배지"
           description={`특정 마켓을 ${THRESHOLD}회 이상 이용하면 해당 ‘마니아 배지’를 1회 획득해요.`}
           actions={
             <a
@@ -79,7 +80,7 @@ export default function Page() {
       {/* 평판 키워드 */}
       <Reveal>
         <div className="grid gap-4 md:grid-cols-2">
-          <SectionCard title="긍정 키워드에요" subtitle="좋은 거래 경험을 표현해요.">
+          <SectionCard title="긍정 키워드" subtitle="좋은 거래 경험을 표현해요.">
             <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
               {positive.map((t, i) => (
                 <motion.li
@@ -94,10 +95,10 @@ export default function Page() {
                 </motion.li>
               ))}
             </ul>
-            <p className="mt-3 text-xs text-gray-500">※ 평판 키워드는 현재 배지로 바뀌지 않아요.</p>
+            <p className="mt-3 text-xs text-gray-500">※ 평판 키워드 관련 배지도 준비중이에요.</p>
           </SectionCard>
 
-          <SectionCard title="부정 키워드에요" subtitle="개선이 필요한 부분을 알려줘요.">
+          <SectionCard title="부정 키워드" subtitle="개선이 필요한 부분을 알려줘요.">
             <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
               {negative.map((t, i) => (
                 <motion.li
@@ -121,7 +122,7 @@ export default function Page() {
       <Reveal>
         <PageHeader
           className="mt-10 mb-6"
-          eyebrow="마니아 배지에요"
+          eyebrow="매니아 배지에요"
           title="자주 이용한 마켓으로 배지를 받아요"
           description={`각 마켓을 ${THRESHOLD}회 이상 이용하면 배지를 획득해요. 미획득 배지는 회색으로 보여줘요.`}
         />
@@ -130,7 +131,7 @@ export default function Page() {
       {maniaBadges.length === 0 ? (
         <Reveal>
           <div className="rounded-xl border p-6 text-center text-sm text-gray-600 dark:text-gray-300 dark:border-gray-800">
-            아직 받은 마니아 배지가 없어요. 자주 이용한 마켓의 공구가 쌓이면 자동으로 배지를 받을 수 있어요.
+            아직 받은 매니아 배지가 없어요. 자주 이용한 마켓의 공구가 쌓이면 자동으로 배지를 받을 수 있어요.
           </div>
         </Reveal>
       ) : (
@@ -161,13 +162,13 @@ export default function Page() {
         </div>
       )}
 
-      <p className="mt-8 text-xs text-gray-500">데이터 기준: 2025-09-30 v7에요</p>
+      <p className="mt-8 text-xs text-gray-500">데이터 기준: 2025-10-11 v8</p>
 
       {/* 모달: 배지 가이드 + 큰 이미지 미리보기 */}
       <Modal
         open={open && !!selected}
         onClose={() => setOpen(false)}
-        title={selected ? `${selected.title} 가이드에요` : undefined}
+        title={selected ? `${selected.title} 배지에요` : undefined}
         className="p-0 sm:p-0"
       >
         {selected && (
@@ -190,7 +191,7 @@ export default function Page() {
 
             <div className="mt-6">
               <div className="mb-1 flex items-end justify-between text-xs text-gray-600 dark:text-gray-300">
-                <span>진행률에요</span>
+                <span>진행률</span>
                 <span>
                   {Math.min(selected.uses ?? 0, THRESHOLD)} / {THRESHOLD} ({percent}%)
                 </span>

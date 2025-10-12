@@ -1,0 +1,23 @@
+# make_dark_map.py (임시 실행용)
+import os, pandas as pd, folium
+from folium.plugins import MarkerCluster
+
+EMBEDS = r"C:\Users\chans\projects\myapp\public\embeds"  # 네 경로
+os.makedirs(EMBEDS, exist_ok=True)
+
+# 네 CSV 경로로 맞춰줘
+CSV = r"더미데이터2000명\dummy_data_2000_posts.csv"
+df = pd.read_csv(CSV)
+
+# "POINT(lon lat)" -> lon/lat 추출 (네 코드와 동일)
+df[["lon","lat"]] = df["mogu_market"].str.extract(r"POINT\((.*) (.*)\)").astype(float)
+
+m = folium.Map(location=[37.5665,126.9780], zoom_start=11, tiles="CartoDB dark_matter")
+cluster = MarkerCluster().add_to(m)
+for _, r in df.iterrows():
+    folium.CircleMarker([r["lat"], r["lon"]], radius=5, color="blue", fill=True, fill_color="blue",
+                        popup=f"<strong>{r['name']}</strong>").add_to(cluster)
+
+out = os.path.join(EMBEDS, "activity_map_clusters_dark.html")
+m.save(out)
+print("✅ 저장:", out)
